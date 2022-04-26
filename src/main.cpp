@@ -206,8 +206,8 @@ YGNodeRef makeNode(YGConfigRef config, py::object &tree, std::vector<YGNodeRef> 
         }
     }
 
-    if (attributes.contains("maxWidth")) {
-        auto raw = attributes["maxWidth"];
+    if (attributes.contains("max_width")) {
+        auto raw = attributes["max_width"];
         if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
             YGNodeStyleSetMaxWidth(node, raw.cast<float>());
         } else if (py::isinstance<py::str>(raw)) {
@@ -226,8 +226,8 @@ YGNodeRef makeNode(YGConfigRef config, py::object &tree, std::vector<YGNodeRef> 
         }
     }
 
-    if (attributes.contains("minWidth")) {
-        auto raw = attributes["minWidth"];
+    if (attributes.contains("min_width")) {
+        auto raw = attributes["min_width"];
         if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
             YGNodeStyleSetMinWidth(node, raw.cast<float>());
         } else if (py::isinstance<py::str>(raw)) {
@@ -270,8 +270,8 @@ YGNodeRef makeNode(YGConfigRef config, py::object &tree, std::vector<YGNodeRef> 
         }
     }
 
-    if (attributes.contains("maxHeight")) {
-        auto raw = attributes["maxHeight"];
+    if (attributes.contains("max_height")) {
+        auto raw = attributes["max_height"];
         if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
             YGNodeStyleSetMaxHeight(node, raw.cast<float>());
         } else if (py::isinstance<py::str>(raw)) {
@@ -290,8 +290,8 @@ YGNodeRef makeNode(YGConfigRef config, py::object &tree, std::vector<YGNodeRef> 
         }
     }
 
-    if (attributes.contains("minHeight")) {
-        auto raw = attributes["minHeight"];
+    if (attributes.contains("min_height")) {
+        auto raw = attributes["min_height"];
         if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
             YGNodeStyleSetMinHeight(node, raw.cast<float>());
         } else if (py::isinstance<py::str>(raw)) {
@@ -308,8 +308,8 @@ YGNodeRef makeNode(YGConfigRef config, py::object &tree, std::vector<YGNodeRef> 
         }
     }
 
-    if (attributes.contains("flexBasis")) {
-        auto raw = attributes["flexBasis"];
+    if (attributes.contains("flex_basis")) {
+        auto raw = attributes["flex_basis"];
         if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
             YGNodeStyleSetFlexBasis(node, raw.cast<float>());
         } else if (py::isinstance<py::str>(raw)) {
@@ -330,48 +330,43 @@ YGNodeRef makeNode(YGConfigRef config, py::object &tree, std::vector<YGNodeRef> 
         }
     }
 
-    if (attributes.contains("flexDirection")) {
-        auto raw = attributes["flexDirection"].cast<std::string>();;
+    if (attributes.contains("flex_direction")) {
+        auto raw = attributes["flex_direction"].cast<std::string>();;
         YGNodeStyleSetFlexDirection(node, flexDirectionDeserialize(raw));
     }
 
-    if (attributes.contains("justifyContent")) {
-        auto raw = attributes["justifyContent"].cast<std::string>();;
+    if (attributes.contains("justify_content")) {
+        auto raw = attributes["justify_content"].cast<std::string>();;
         YGNodeStyleSetJustifyContent(node, justifyDeserialize(raw));
     }
 
-    if (attributes.contains("alignItems")) {
-        auto raw = attributes["alignItems"].cast<std::string>();;
+    if (attributes.contains("align_items")) {
+        auto raw = attributes["align_items"].cast<std::string>();;
         YGNodeStyleSetAlignItems(node, alignDeserialize(raw));
     }
 
-    if (attributes.contains("alignItems")) {
-        auto raw = attributes["alignItems"].cast<std::string>();;
-        YGNodeStyleSetAlignItems(node, alignDeserialize(raw));
-    }
-
-    if (attributes.contains("alignSelf")) {
-        auto raw = attributes["alignSelf"].cast<std::string>();;
+    if (attributes.contains("align_self")) {
+        auto raw = attributes["align_self"].cast<std::string>();;
         YGNodeStyleSetAlignSelf(node, alignDeserialize(raw));
     }
 
-    if (attributes.contains("alignContent")) {
-        auto raw = attributes["alignContent"].cast<std::string>();;
+    if (attributes.contains("align_content")) {
+        auto raw = attributes["align_content"].cast<std::string>();;
         YGNodeStyleSetAlignContent(node, alignDeserialize(raw));
     }
 
-    if (attributes.contains("aspectRatio")) {
-        auto raw = attributes["aspectRatio"].cast<float>();
+    if (attributes.contains("aspect_ratio")) {
+        auto raw = attributes["aspect_ratio"].cast<float>();
         YGNodeStyleSetAspectRatio(node, raw);
     }
 
-    if (attributes.contains("flexGrow")) {
-        auto raw = attributes["flexGrow"].cast<float>();
+    if (attributes.contains("flex_grow")) {
+        auto raw = attributes["flex_grow"].cast<float>();
         YGNodeStyleSetFlexGrow(node, raw);
     }
 
-    if (attributes.contains("flexShrink")) {
-        auto raw = attributes["flexShrink"].cast<float>();
+    if (attributes.contains("flex_shrink")) {
+        auto raw = attributes["flex_shrink"].cast<float>();
         YGNodeStyleSetFlexShrink(node, raw);
     }
 
@@ -380,8 +375,8 @@ YGNodeRef makeNode(YGConfigRef config, py::object &tree, std::vector<YGNodeRef> 
         YGNodeStyleSetDirection(node, directionDeserialize(raw));
     }
 
-    if (attributes.contains("flexWrap")) {
-        auto raw = attributes["flexWrap"].cast<std::string>();
+    if (attributes.contains("flex_wrap")) {
+        auto raw = attributes["flex_wrap"].cast<std::string>();
         YGNodeStyleSetFlexWrap(node, wrapDeserialize(raw));
     }
 
@@ -472,8 +467,8 @@ YGNodeRef makeNode(YGConfigRef config, py::object &tree, std::vector<YGNodeRef> 
         }
     }
 
-    if (attributes.contains("marginLeft")) {
-        auto raw = attributes["marginLeft"];
+    if (attributes.contains("margin_left")) {
+        auto raw = attributes["margin_left"];
         auto edge = YGEdgeLeft;
         if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
             YGNodeStyleSetMargin(node, edge, raw.cast<float>());
@@ -493,8 +488,8 @@ YGNodeRef makeNode(YGConfigRef config, py::object &tree, std::vector<YGNodeRef> 
         }
     }
 
-    if (attributes.contains("marginRight")) {
-        auto raw = attributes["marginRight"];
+    if (attributes.contains("margin_right")) {
+        auto raw = attributes["margin_right"];
         auto edge = YGEdgeRight;
         if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
             YGNodeStyleSetMargin(node, edge, raw.cast<float>());
@@ -514,8 +509,8 @@ YGNodeRef makeNode(YGConfigRef config, py::object &tree, std::vector<YGNodeRef> 
         }
     }
 
-    if (attributes.contains("marginTop")) {
-        auto raw = attributes["marginTop"];
+    if (attributes.contains("margin_top")) {
+        auto raw = attributes["margin_top"];
         auto edge = YGEdgeTop;
         if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
             YGNodeStyleSetMargin(node, edge, raw.cast<float>());
@@ -535,8 +530,8 @@ YGNodeRef makeNode(YGConfigRef config, py::object &tree, std::vector<YGNodeRef> 
         }
     }
 
-    if (attributes.contains("marginBottom")) {
-        auto raw = attributes["marginBottom"];
+    if (attributes.contains("margin_bottom")) {
+        auto raw = attributes["margin_bottom"];
         auto edge = YGEdgeBottom;
         if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
             YGNodeStyleSetMargin(node, edge, raw.cast<float>());
@@ -557,8 +552,8 @@ YGNodeRef makeNode(YGConfigRef config, py::object &tree, std::vector<YGNodeRef> 
     }
 
 
-    if (attributes.contains("paddingLeft")) {
-        auto raw = attributes["paddingLeft"];
+    if (attributes.contains("padding_left")) {
+        auto raw = attributes["padding_left"];
         auto edge = YGEdgeLeft;
         if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
             YGNodeStyleSetPadding(node, edge, raw.cast<float>());
@@ -578,8 +573,8 @@ YGNodeRef makeNode(YGConfigRef config, py::object &tree, std::vector<YGNodeRef> 
         }
     }
     
-    if (attributes.contains("paddingRight")) {
-        auto raw = attributes["paddingRight"];
+    if (attributes.contains("padding_right")) {
+        auto raw = attributes["padding_right"];
         auto edge = YGEdgeRight;
         if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
             YGNodeStyleSetPadding(node, edge, raw.cast<float>());
@@ -599,8 +594,8 @@ YGNodeRef makeNode(YGConfigRef config, py::object &tree, std::vector<YGNodeRef> 
         }
     }
 
-    if (attributes.contains("paddingTop")) {
-        auto raw = attributes["paddingTop"];
+    if (attributes.contains("padding_top")) {
+        auto raw = attributes["padding_top"];
         auto edge = YGEdgeTop;
         if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
             YGNodeStyleSetPadding(node, edge, raw.cast<float>());
@@ -620,8 +615,8 @@ YGNodeRef makeNode(YGConfigRef config, py::object &tree, std::vector<YGNodeRef> 
         }
     }
 
-    if (attributes.contains("paddingBottom")) {
-        auto raw = attributes["paddingBottom"];
+    if (attributes.contains("padding_bottom")) {
+        auto raw = attributes["padding_bottom"];
         auto edge = YGEdgeBottom;
         if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
             YGNodeStyleSetPadding(node, edge, raw.cast<float>());
