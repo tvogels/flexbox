@@ -3,7 +3,7 @@ from typing import Optional
 from ._core import *
 
 def build_index(tree: domtree.Node, layouts: dict, prefix=[], idx={}):
-    name = "/".join(prefix)
+    name = "/" + "/".join(prefix)
     idx[name] = layouts[tree]
     for i, child in enumerate(tree.children):  # type: ignore
         child: domtree.Node = child  # type: ignore

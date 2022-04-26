@@ -22,13 +22,12 @@ tree = layout(
     )
 )
 
-
 # Just display
 
 from domtree.svg import svg, g, rect, text
 
 print(
-    svg(width=tree[""].width, height=tree[""].height)(
+    svg(width=tree["/"].width, height=tree["/"].height)(
         g(name=name)(
             rect(
                 fill="rgba(0,0,0,0.2)",
