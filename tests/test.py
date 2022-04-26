@@ -1,28 +1,27 @@
-import yoga
+from yoga import div, layout
 
-tree = {
-    "children": [
-        {
-            "width": 50,
-            "height": 50.,
-        },
-        {
-            "width": 100,
-            "height": 25,
-        },
-        {
-            "width": 50,
-            "height": 30,
-        }
-    ]
-}
-out = yoga.compute_layout(tree)
+row = div(flexDirection="row", padding=2)
+col = div(flexDirection="column", padding=2)
 
-def print_tree(tree, indent=0):
-    tree = {**tree}
-    children = tree.pop("children", [])
-    print(" " * indent + str(tree))
-    for c in children:
-        print_tree(c, indent=indent+4)
+tree = layout(
+    row(width=300, height=150, justifyItems="stretch")(
+        div(width=50, height=50, id="left"),
+        col(width=50, height=50, margin=10, id="center")(
+            div(flexGrow=1),
+            div(flexGrow=1),
+        ),
+        div(flexGrow=1, padding="2%")(
+            div(flexGrow=1, marginRight="2%"),
+            div(flexGrow=1),
+        ),
+    )
+)
 
-print_tree(tree)
+from domtree.svg import svg, g, rect, text
+
+redbox = rect(fill="rgba(0,0,0,0.2)", stroke="rgba(0,0,0,0.4)", stroke_width=".3")
+
+print(svg(width=tree[""].width, height=tree[""].height)(
+    g(redbox(x=box.left, y=box.top, height=box.height, width=box.width) for name, box in tree.items()),
+    g(text(x=box.x(0.5), y=box.y(0.5), text_anchor="middle", font_size=5)(name) for name, box in tree.items())
+))
