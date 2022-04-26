@@ -794,8 +794,8 @@ py::dict computeLayout(py::object &tree, std::optional<float> width, std::option
 
     YGNodeCalculateLayout(
         root, 
-        width.has_value() ? width.value() : YGUndefined, 
-        height.has_value() ? height.value() : YGUndefined, 
+        width.has_value() ? *width : YGUndefined, 
+        height.has_value() ? *height : YGUndefined, 
         directionDeserialize(direction)
     );
 
