@@ -173,517 +173,710 @@ YGDisplay displayDeserialize(const std::string &name)
     return YGDisplayFlex;
 }
 
-
 YGNodeRef makeNode(YGConfigRef config, py::object &tree, std::vector<YGNodeRef> &allocatedNodes)
 {
     auto node = YGNodeNewWithConfig(config);
-    
+
     std::regex lengthRegex("([\\d.]+)(px|pt|%)?", std::regex_constants::ECMAScript);
 
     auto attributes = tree.attr("attributes");
 
-    if (attributes.contains("width")) {
+    if (attributes.contains("width"))
+    {
         auto raw = attributes["width"];
-        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
+        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw))
+        {
             YGNodeStyleSetWidth(node, raw.cast<float>());
-        } else if (py::isinstance<py::str>(raw)) {
+        }
+        else if (py::isinstance<py::str>(raw))
+        {
             auto text = raw.cast<std::string>();
-            if (text == "auto") {
+            if (text == "auto")
+            {
                 YGNodeStyleSetWidthAuto(node);
-            } else {
+            }
+            else
+            {
                 std::smatch m;
-                if (!std::regex_match(text, m, lengthRegex)) {
+                if (!std::regex_match(text, m, lengthRegex))
+                {
                     throw std::invalid_argument("Illegal value in padding");
                 }
                 auto value = std::stof(m[1]);
                 std::string unit = m[2];
-                if (unit == "%") {
+                if (unit == "%")
+                {
                     YGNodeStyleSetWidthPercent(node, value);
-                } else {
+                }
+                else
+                {
                     YGNodeStyleSetWidth(node, value);
                 }
             }
         }
     }
 
-    if (attributes.contains("max_width")) {
+    if (attributes.contains("max_width"))
+    {
         auto raw = attributes["max_width"];
-        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
+        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw))
+        {
             YGNodeStyleSetMaxWidth(node, raw.cast<float>());
-        } else if (py::isinstance<py::str>(raw)) {
+        }
+        else if (py::isinstance<py::str>(raw))
+        {
             auto text = raw.cast<std::string>();
             std::smatch m;
-            if (!std::regex_match(text, m, lengthRegex)) {
+            if (!std::regex_match(text, m, lengthRegex))
+            {
                 throw std::invalid_argument("Illegal value in padding");
             }
             auto value = std::stof(m[1]);
             std::string unit = m[2];
-            if (unit == "%") {
+            if (unit == "%")
+            {
                 YGNodeStyleSetMaxWidthPercent(node, value);
-            } else {
+            }
+            else
+            {
                 YGNodeStyleSetMaxWidth(node, value);
             }
         }
     }
 
-    if (attributes.contains("min_width")) {
+    if (attributes.contains("min_width"))
+    {
         auto raw = attributes["min_width"];
-        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
+        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw))
+        {
             YGNodeStyleSetMinWidth(node, raw.cast<float>());
-        } else if (py::isinstance<py::str>(raw)) {
+        }
+        else if (py::isinstance<py::str>(raw))
+        {
             auto text = raw.cast<std::string>();
             std::smatch m;
-            if (!std::regex_match(text, m, lengthRegex)) {
+            if (!std::regex_match(text, m, lengthRegex))
+            {
                 throw std::invalid_argument("Illegal value in padding");
             }
             auto value = std::stof(m[1]);
             std::string unit = m[2];
-            if (unit == "%") {
+            if (unit == "%")
+            {
                 YGNodeStyleSetMinWidthPercent(node, value);
-            } else {
+            }
+            else
+            {
                 YGNodeStyleSetMinWidth(node, value);
             }
         }
     }
 
-    if (attributes.contains("height")) {
+    if (attributes.contains("height"))
+    {
         auto raw = attributes["height"];
-        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
+        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw))
+        {
             YGNodeStyleSetHeight(node, raw.cast<float>());
-        } else if (py::isinstance<py::str>(raw)) {
+        }
+        else if (py::isinstance<py::str>(raw))
+        {
             auto text = raw.cast<std::string>();
-            if (text == "auto") {
+            if (text == "auto")
+            {
                 YGNodeStyleSetHeightAuto(node);
-            } else {
+            }
+            else
+            {
                 std::smatch m;
-                if (!std::regex_match(text, m, lengthRegex)) {
+                if (!std::regex_match(text, m, lengthRegex))
+                {
                     throw std::invalid_argument("Illegal value in padding");
                 }
                 auto value = std::stof(m[1]);
                 std::string unit = m[2];
-                if (unit == "%") {
+                if (unit == "%")
+                {
                     YGNodeStyleSetHeightPercent(node, value);
-                } else {
+                }
+                else
+                {
                     YGNodeStyleSetHeight(node, value);
                 }
             }
         }
     }
 
-    if (attributes.contains("max_height")) {
+    if (attributes.contains("max_height"))
+    {
         auto raw = attributes["max_height"];
-        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
+        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw))
+        {
             YGNodeStyleSetMaxHeight(node, raw.cast<float>());
-        } else if (py::isinstance<py::str>(raw)) {
+        }
+        else if (py::isinstance<py::str>(raw))
+        {
             auto text = raw.cast<std::string>();
             std::smatch m;
-            if (!std::regex_match(text, m, lengthRegex)) {
+            if (!std::regex_match(text, m, lengthRegex))
+            {
                 throw std::invalid_argument("Illegal value in padding");
             }
             auto value = std::stof(m[1]);
             std::string unit = m[2];
-            if (unit == "%") {
+            if (unit == "%")
+            {
                 YGNodeStyleSetMaxHeightPercent(node, value);
-            } else {
+            }
+            else
+            {
                 YGNodeStyleSetMaxHeight(node, value);
             }
         }
     }
 
-    if (attributes.contains("min_height")) {
+    if (attributes.contains("min_height"))
+    {
         auto raw = attributes["min_height"];
-        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
+        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw))
+        {
             YGNodeStyleSetMinHeight(node, raw.cast<float>());
-        } else if (py::isinstance<py::str>(raw)) {
+        }
+        else if (py::isinstance<py::str>(raw))
+        {
             auto text = raw.cast<std::string>();
             auto ss = std::istringstream(text);
             float value;
             std::string unit;
             ss >> value >> unit;
-            if (unit == "%") {
+            if (unit == "%")
+            {
                 YGNodeStyleSetMinHeightPercent(node, value);
-            } else {
+            }
+            else
+            {
                 YGNodeStyleSetMinHeight(node, value);
             }
         }
     }
 
-    if (attributes.contains("flex_basis")) {
+    if (attributes.contains("flex_basis"))
+    {
         auto raw = attributes["flex_basis"];
-        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
+        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw))
+        {
             YGNodeStyleSetFlexBasis(node, raw.cast<float>());
-        } else if (py::isinstance<py::str>(raw)) {
+        }
+        else if (py::isinstance<py::str>(raw))
+        {
             auto text = raw.cast<std::string>();
-            if (text == "auto") {
+            if (text == "auto")
+            {
                 YGNodeStyleSetFlexBasisAuto(node);
-            } else {
+            }
+            else
+            {
                 auto ss = std::istringstream(text);
                 float value;
                 std::string unit;
                 ss >> value >> unit;
-                if (unit == "%") {
+                if (unit == "%")
+                {
                     YGNodeStyleSetFlexBasisPercent(node, value);
-                } else {
+                }
+                else
+                {
                     YGNodeStyleSetFlexBasis(node, value);
                 }
             }
         }
     }
 
-    if (attributes.contains("flex_direction")) {
-        auto raw = attributes["flex_direction"].cast<std::string>();;
+    if (attributes.contains("flex_direction"))
+    {
+        auto raw = attributes["flex_direction"].cast<std::string>();
+        ;
         YGNodeStyleSetFlexDirection(node, flexDirectionDeserialize(raw));
     }
 
-    if (attributes.contains("justify_content")) {
-        auto raw = attributes["justify_content"].cast<std::string>();;
+    if (attributes.contains("justify_content"))
+    {
+        auto raw = attributes["justify_content"].cast<std::string>();
+        ;
         YGNodeStyleSetJustifyContent(node, justifyDeserialize(raw));
     }
 
-    if (attributes.contains("align_items")) {
-        auto raw = attributes["align_items"].cast<std::string>();;
+    if (attributes.contains("align_items"))
+    {
+        auto raw = attributes["align_items"].cast<std::string>();
+        ;
         YGNodeStyleSetAlignItems(node, alignDeserialize(raw));
     }
 
-    if (attributes.contains("align_self")) {
-        auto raw = attributes["align_self"].cast<std::string>();;
+    if (attributes.contains("align_self"))
+    {
+        auto raw = attributes["align_self"].cast<std::string>();
+        ;
         YGNodeStyleSetAlignSelf(node, alignDeserialize(raw));
     }
 
-    if (attributes.contains("align_content")) {
-        auto raw = attributes["align_content"].cast<std::string>();;
+    if (attributes.contains("align_content"))
+    {
+        auto raw = attributes["align_content"].cast<std::string>();
+        ;
         YGNodeStyleSetAlignContent(node, alignDeserialize(raw));
     }
 
-    if (attributes.contains("aspect_ratio")) {
+    if (attributes.contains("aspect_ratio"))
+    {
         auto raw = attributes["aspect_ratio"].cast<float>();
         YGNodeStyleSetAspectRatio(node, raw);
     }
 
-    if (attributes.contains("flex_grow")) {
+    if (attributes.contains("flex_grow"))
+    {
         auto raw = attributes["flex_grow"].cast<float>();
         YGNodeStyleSetFlexGrow(node, raw);
     }
 
-    if (attributes.contains("flex_shrink")) {
+    if (attributes.contains("flex_shrink"))
+    {
         auto raw = attributes["flex_shrink"].cast<float>();
         YGNodeStyleSetFlexShrink(node, raw);
     }
 
-    if (attributes.contains("direction")) {
+    if (attributes.contains("direction"))
+    {
         auto raw = attributes["direction"].cast<std::string>();
         YGNodeStyleSetDirection(node, directionDeserialize(raw));
     }
 
-    if (attributes.contains("flex_wrap")) {
+    if (attributes.contains("flex_wrap"))
+    {
         auto raw = attributes["flex_wrap"].cast<std::string>();
         YGNodeStyleSetFlexWrap(node, wrapDeserialize(raw));
     }
 
-    if (attributes.contains("position")) {
+    if (attributes.contains("position"))
+    {
         auto raw = attributes["position"].cast<std::string>();
         YGNodeStyleSetPositionType(node, positionTypeDeserialize(raw));
     }
 
-    if (attributes.contains("left")) {
+    if (attributes.contains("left"))
+    {
         auto raw = attributes["left"];
         YGEdge edge = YGEdgeLeft;
-        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
-            YGNodeStyleSetPosition (node, edge, raw.cast<float>());
-        } else {
+        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw))
+        {
+            YGNodeStyleSetPosition(node, edge, raw.cast<float>());
+        }
+        else
+        {
             auto text = raw.cast<std::string>();
             std::smatch m;
-            if (!std::regex_match(text, m, lengthRegex)) {
+            if (!std::regex_match(text, m, lengthRegex))
+            {
                 throw std::invalid_argument("Illegal value in padding");
             }
             auto value = std::stof(m[1]);
             std::string unit = m[2];
-            if (unit == "%") {
+            if (unit == "%")
+            {
                 YGNodeStyleSetPositionPercent(node, edge, value);
-            } else {
+            }
+            else
+            {
                 YGNodeStyleSetPosition(node, edge, value);
             }
         }
     }
 
-    if (attributes.contains("right")) {
+    if (attributes.contains("right"))
+    {
         auto raw = attributes["right"];
         YGEdge edge = YGEdgeRight;
-        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
-            YGNodeStyleSetPosition (node, edge, raw.cast<float>());
-        } else {
+        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw))
+        {
+            YGNodeStyleSetPosition(node, edge, raw.cast<float>());
+        }
+        else
+        {
             auto text = raw.cast<std::string>();
             std::smatch m;
-            if (!std::regex_match(text, m, lengthRegex)) {
+            if (!std::regex_match(text, m, lengthRegex))
+            {
                 throw std::invalid_argument("Illegal value in padding");
             }
             auto value = std::stof(m[1]);
             std::string unit = m[2];
-            if (unit == "%") {
+            if (unit == "%")
+            {
                 YGNodeStyleSetPositionPercent(node, edge, value);
-            } else {
+            }
+            else
+            {
                 YGNodeStyleSetPosition(node, edge, value);
             }
         }
     }
-    if (attributes.contains("top")) {
+    if (attributes.contains("top"))
+    {
         auto raw = attributes["top"];
         YGEdge edge = YGEdgeTop;
-        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
-            YGNodeStyleSetPosition (node, edge, raw.cast<float>());
-        } else {
+        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw))
+        {
+            YGNodeStyleSetPosition(node, edge, raw.cast<float>());
+        }
+        else
+        {
             auto text = raw.cast<std::string>();
             std::smatch m;
-            if (!std::regex_match(text, m, lengthRegex)) {
+            if (!std::regex_match(text, m, lengthRegex))
+            {
                 throw std::invalid_argument("Illegal value in padding");
             }
             auto value = std::stof(m[1]);
             std::string unit = m[2];
-            if (unit == "%") {
+            if (unit == "%")
+            {
                 YGNodeStyleSetPositionPercent(node, edge, value);
-            } else {
+            }
+            else
+            {
                 YGNodeStyleSetPosition(node, edge, value);
             }
         }
     }
-    if (attributes.contains("bottom")) {
+    if (attributes.contains("bottom"))
+    {
         auto raw = attributes["bottom"];
         YGEdge edge = YGEdgeBottom;
-        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
-            YGNodeStyleSetPosition (node, edge, raw.cast<float>());
-        } else {
+        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw))
+        {
+            YGNodeStyleSetPosition(node, edge, raw.cast<float>());
+        }
+        else
+        {
             auto text = raw.cast<std::string>();
             std::smatch m;
-            if (!std::regex_match(text, m, lengthRegex)) {
+            if (!std::regex_match(text, m, lengthRegex))
+            {
                 throw std::invalid_argument("Illegal value in padding");
             }
             auto value = std::stof(m[1]);
             std::string unit = m[2];
-            if (unit == "%") {
+            if (unit == "%")
+            {
                 YGNodeStyleSetPositionPercent(node, edge, value);
-            } else {
+            }
+            else
+            {
                 YGNodeStyleSetPosition(node, edge, value);
             }
         }
     }
 
-    if (attributes.contains("margin_left")) {
+    if (attributes.contains("margin_left"))
+    {
         auto raw = attributes["margin_left"];
         auto edge = YGEdgeLeft;
-        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
+        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw))
+        {
             YGNodeStyleSetMargin(node, edge, raw.cast<float>());
-        } else if (py::isinstance<py::str>(raw)) {
+        }
+        else if (py::isinstance<py::str>(raw))
+        {
             auto text = raw.cast<std::string>();
             std::smatch m;
-            if (!std::regex_match(text, m, lengthRegex)) {
+            if (!std::regex_match(text, m, lengthRegex))
+            {
                 throw std::invalid_argument("Illegal value in padding");
             }
             auto value = std::stof(m[1]);
             std::string unit = m[2];
-            if (unit == "%") {
+            if (unit == "%")
+            {
                 YGNodeStyleSetMarginPercent(node, edge, value);
-            } else {
+            }
+            else
+            {
                 YGNodeStyleSetMargin(node, edge, value);
             }
         }
     }
 
-    if (attributes.contains("margin_right")) {
+    if (attributes.contains("margin_right"))
+    {
         auto raw = attributes["margin_right"];
         auto edge = YGEdgeRight;
-        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
+        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw))
+        {
             YGNodeStyleSetMargin(node, edge, raw.cast<float>());
-        } else if (py::isinstance<py::str>(raw)) {
+        }
+        else if (py::isinstance<py::str>(raw))
+        {
             auto text = raw.cast<std::string>();
             std::smatch m;
-            if (!std::regex_match(text, m, lengthRegex)) {
+            if (!std::regex_match(text, m, lengthRegex))
+            {
                 throw std::invalid_argument("Illegal value in padding");
             }
             auto value = std::stof(m[1]);
             std::string unit = m[2];
-            if (unit == "%") {
+            if (unit == "%")
+            {
                 YGNodeStyleSetMarginPercent(node, edge, value);
-            } else {
+            }
+            else
+            {
                 YGNodeStyleSetMargin(node, edge, value);
             }
         }
     }
 
-    if (attributes.contains("margin_top")) {
+    if (attributes.contains("margin_top"))
+    {
         auto raw = attributes["margin_top"];
         auto edge = YGEdgeTop;
-        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
+        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw))
+        {
             YGNodeStyleSetMargin(node, edge, raw.cast<float>());
-        } else if (py::isinstance<py::str>(raw)) {
+        }
+        else if (py::isinstance<py::str>(raw))
+        {
             auto text = raw.cast<std::string>();
             std::smatch m;
-            if (!std::regex_match(text, m, lengthRegex)) {
+            if (!std::regex_match(text, m, lengthRegex))
+            {
                 throw std::invalid_argument("Illegal value in padding");
             }
             auto value = std::stof(m[1]);
             std::string unit = m[2];
-            if (unit == "%") {
+            if (unit == "%")
+            {
                 YGNodeStyleSetMarginPercent(node, edge, value);
-            } else {
+            }
+            else
+            {
                 YGNodeStyleSetMargin(node, edge, value);
             }
         }
     }
 
-    if (attributes.contains("margin_bottom")) {
+    if (attributes.contains("margin_bottom"))
+    {
         auto raw = attributes["margin_bottom"];
         auto edge = YGEdgeBottom;
-        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
+        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw))
+        {
             YGNodeStyleSetMargin(node, edge, raw.cast<float>());
-        } else if (py::isinstance<py::str>(raw)) {
+        }
+        else if (py::isinstance<py::str>(raw))
+        {
             auto text = raw.cast<std::string>();
             std::smatch m;
-            if (!std::regex_match(text, m, lengthRegex)) {
+            if (!std::regex_match(text, m, lengthRegex))
+            {
                 throw std::invalid_argument("Illegal value in padding");
             }
             auto value = std::stof(m[1]);
             std::string unit = m[2];
-            if (unit == "%") {
+            if (unit == "%")
+            {
                 YGNodeStyleSetMarginPercent(node, edge, value);
-            } else {
+            }
+            else
+            {
                 YGNodeStyleSetMargin(node, edge, value);
             }
         }
     }
 
-
-    if (attributes.contains("padding_left")) {
+    if (attributes.contains("padding_left"))
+    {
         auto raw = attributes["padding_left"];
         auto edge = YGEdgeLeft;
-        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
+        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw))
+        {
             YGNodeStyleSetPadding(node, edge, raw.cast<float>());
-        } else if (py::isinstance<py::str>(raw)) {
+        }
+        else if (py::isinstance<py::str>(raw))
+        {
             auto text = raw.cast<std::string>();
             std::smatch m;
-            if (!std::regex_match(text, m, lengthRegex)) {
+            if (!std::regex_match(text, m, lengthRegex))
+            {
                 throw std::invalid_argument("Illegal value in padding");
             }
             auto value = std::stof(m[1]);
             std::string unit = m[2];
-            if (unit == "%") {
+            if (unit == "%")
+            {
                 YGNodeStyleSetPaddingPercent(node, edge, value);
-            } else {
+            }
+            else
+            {
                 YGNodeStyleSetPadding(node, edge, value);
             }
         }
     }
-    
-    if (attributes.contains("padding_right")) {
+
+    if (attributes.contains("padding_right"))
+    {
         auto raw = attributes["padding_right"];
         auto edge = YGEdgeRight;
-        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
+        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw))
+        {
             YGNodeStyleSetPadding(node, edge, raw.cast<float>());
-        } else if (py::isinstance<py::str>(raw)) {
+        }
+        else if (py::isinstance<py::str>(raw))
+        {
             auto text = raw.cast<std::string>();
             std::smatch m;
-            if (!std::regex_match(text, m, lengthRegex)) {
+            if (!std::regex_match(text, m, lengthRegex))
+            {
                 throw std::invalid_argument("Illegal value in padding");
             }
             auto value = std::stof(m[1]);
             std::string unit = m[2];
-            if (unit == "%") {
+            if (unit == "%")
+            {
                 YGNodeStyleSetPaddingPercent(node, edge, value);
-            } else {
+            }
+            else
+            {
                 YGNodeStyleSetPadding(node, edge, value);
             }
         }
     }
 
-    if (attributes.contains("padding_top")) {
+    if (attributes.contains("padding_top"))
+    {
         auto raw = attributes["padding_top"];
         auto edge = YGEdgeTop;
-        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
+        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw))
+        {
             YGNodeStyleSetPadding(node, edge, raw.cast<float>());
-        } else if (py::isinstance<py::str>(raw)) {
+        }
+        else if (py::isinstance<py::str>(raw))
+        {
             auto text = raw.cast<std::string>();
             std::smatch m;
-            if (!std::regex_match(text, m, lengthRegex)) {
+            if (!std::regex_match(text, m, lengthRegex))
+            {
                 throw std::invalid_argument("Illegal value in padding");
             }
             auto value = std::stof(m[1]);
             std::string unit = m[2];
-            if (unit == "%") {
+            if (unit == "%")
+            {
                 YGNodeStyleSetPaddingPercent(node, edge, value);
-            } else {
+            }
+            else
+            {
                 YGNodeStyleSetPadding(node, edge, value);
             }
         }
     }
 
-    if (attributes.contains("padding_bottom")) {
+    if (attributes.contains("padding_bottom"))
+    {
         auto raw = attributes["padding_bottom"];
         auto edge = YGEdgeBottom;
-        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {
+        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw))
+        {
             YGNodeStyleSetPadding(node, edge, raw.cast<float>());
-        } else if (py::isinstance<py::str>(raw)) {
+        }
+        else if (py::isinstance<py::str>(raw))
+        {
             auto text = raw.cast<std::string>();
             auto ss = std::istringstream(text);
             float value;
             std::string unit;
             ss >> value >> unit;
-            if (unit == "%") {
+            if (unit == "%")
+            {
                 YGNodeStyleSetPaddingPercent(node, edge, value);
-            } else {
+            }
+            else
+            {
                 YGNodeStyleSetPadding(node, edge, value);
             }
         }
     }
 
-    if (attributes.contains("margin")) {
+    if (attributes.contains("margin"))
+    {
         auto raw = attributes["margin"];
-        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {\
+        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw))
+        {
             auto edge = YGEdgeAll;
             YGNodeStyleSetMargin(node, edge, raw.cast<float>());
-        } else if (py::isinstance<py::str>(raw)) {
+        }
+        else if (py::isinstance<py::str>(raw))
+        {
             auto text = raw.cast<std::string>();
 
             // Split by whitespace
             auto ss = std::istringstream(text);
             std::vector<std::string> tokens; // Create vector to hold our words
-            std::string buf;  
+            std::string buf;
             while (ss >> buf)
                 tokens.push_back(buf);
 
             // Determine edges
             std::vector<YGEdge> edges;
-            if (tokens.size() == 1) {
+            if (tokens.size() == 1)
+            {
                 edges.push_back(YGEdgeAll);
-            } else if (tokens.size() == 2) {
+            }
+            else if (tokens.size() == 2)
+            {
                 edges.push_back(YGEdgeVertical);
                 edges.push_back(YGEdgeHorizontal);
-            } else if (tokens.size() == 3) {
+            }
+            else if (tokens.size() == 3)
+            {
                 edges.push_back(YGEdgeTop);
                 edges.push_back(YGEdgeHorizontal);
                 edges.push_back(YGEdgeBottom);
-            } else if (tokens.size() == 4) {
+            }
+            else if (tokens.size() == 4)
+            {
                 edges.push_back(YGEdgeTop);
                 edges.push_back(YGEdgeRight);
                 edges.push_back(YGEdgeBottom);
                 edges.push_back(YGEdgeLeft);
-            } else {
+            }
+            else
+            {
                 throw std::invalid_argument("Wrong number of entries for margin");
             }
 
             std::size_t i = 0;
-            for (auto edge : edges) {
-                if (tokens[i] == "auto") {
+            for (auto edge : edges)
+            {
+                if (tokens[i] == "auto")
+                {
                     YGNodeStyleSetMarginAuto(node, edge);
-                } else {
+                }
+                else
+                {
                     std::smatch m;
-                    if (!std::regex_match(tokens[i], m, lengthRegex)) {
+                    if (!std::regex_match(tokens[i], m, lengthRegex))
+                    {
                         throw std::invalid_argument("Illegal value in margin");
                     }
                     i += 1;
                     auto value = std::stof(m[1]);
                     std::string unit = m[2];
-                    if (unit == "%") {
+                    if (unit == "%")
+                    {
                         YGNodeStyleSetMarginPercent(node, edge, value);
-                    } else {
+                    }
+                    else
+                    {
                         YGNodeStyleSetMargin(node, edge, value);
                     }
                 }
@@ -691,53 +884,71 @@ YGNodeRef makeNode(YGConfigRef config, py::object &tree, std::vector<YGNodeRef> 
         }
     }
 
-    if (attributes.contains("padding")) {
+    if (attributes.contains("padding"))
+    {
         auto raw = attributes["padding"];
-        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw)) {\
+        if (py::isinstance<py::int_>(raw) || py::isinstance<py::float_>(raw))
+        {
             auto edge = YGEdgeAll;
             YGNodeStyleSetPadding(node, edge, raw.cast<float>());
-        } else if (py::isinstance<py::str>(raw)) {
+        }
+        else if (py::isinstance<py::str>(raw))
+        {
             auto text = raw.cast<std::string>();
 
             // Split by whitespace
             auto ss = std::istringstream(text);
             std::vector<std::string> tokens; // Create vector to hold our words
-            std::string buf;  
+            std::string buf;
             while (ss >> buf)
                 tokens.push_back(buf);
 
             // Determine edges
             std::vector<YGEdge> edges;
-            if (tokens.size() == 1) {
+            if (tokens.size() == 1)
+            {
                 edges.push_back(YGEdgeAll);
-            } else if (tokens.size() == 2) {
+            }
+            else if (tokens.size() == 2)
+            {
                 edges.push_back(YGEdgeVertical);
                 edges.push_back(YGEdgeHorizontal);
-            } else if (tokens.size() == 3) {
+            }
+            else if (tokens.size() == 3)
+            {
                 edges.push_back(YGEdgeTop);
                 edges.push_back(YGEdgeHorizontal);
                 edges.push_back(YGEdgeBottom);
-            } else if (tokens.size() == 4) {
+            }
+            else if (tokens.size() == 4)
+            {
                 edges.push_back(YGEdgeTop);
                 edges.push_back(YGEdgeRight);
                 edges.push_back(YGEdgeBottom);
                 edges.push_back(YGEdgeLeft);
-            } else {
+            }
+            else
+            {
                 throw std::invalid_argument("Wrong number of entries for padding");
             }
 
             std::size_t i = 0;
-            for (auto edge : edges) {
+            for (auto edge : edges)
+            {
                 std::smatch m;
-                if (!std::regex_match(tokens[i], m, lengthRegex)) {
+                if (!std::regex_match(tokens[i], m, lengthRegex))
+                {
                     throw std::invalid_argument("Illegal value in padding");
                 }
                 i += 1;
                 auto value = std::stof(m[1]);
                 std::string unit = m[2];
-                if (unit == "%") {
+                if (unit == "%")
+                {
                     YGNodeStyleSetPaddingPercent(node, edge, value);
-                } else {
+                }
+                else
+                {
                     YGNodeStyleSetPadding(node, edge, value);
                 }
             }
@@ -756,7 +967,8 @@ YGNodeRef makeNode(YGConfigRef config, py::object &tree, std::vector<YGNodeRef> 
     return node;
 }
 
-struct Layout {
+struct Layout
+{
     float left;
     float top;
     float height;
@@ -765,10 +977,11 @@ struct Layout {
     float right;
 };
 
-void writeComputedLayout(py::object &tree, std::vector<YGNodeRef>& nodes, std::size_t* position, py::dict &layouts, float offsetx, float offsety) {
+void writeComputedLayout(py::object &tree, std::vector<YGNodeRef> &nodes, std::size_t *position, py::dict &layouts, float offsetx, float offsety)
+{
     auto node = nodes[*position];
 
-    Layout layout {
+    Layout layout{
         YGNodeLayoutGetLeft(node) + offsetx,
         YGNodeLayoutGetTop(node) + offsety,
         YGNodeLayoutGetHeight(node),
@@ -793,11 +1006,10 @@ py::dict computeLayout(py::object &tree, std::optional<float> width, std::option
     auto root = makeNode(config, tree, allocatedNodes);
 
     YGNodeCalculateLayout(
-        root, 
-        width.has_value() ? *width : YGUndefined, 
-        height.has_value() ? *height : YGUndefined, 
-        directionDeserialize(direction)
-    );
+        root,
+        width.has_value() ? *width : YGUndefined,
+        height.has_value() ? *height : YGUndefined,
+        directionDeserialize(direction));
 
     auto layouts = py::dict();
 
@@ -817,20 +1029,31 @@ PYBIND11_MODULE(_core, m)
     m.def("compute_layout", &computeLayout, py::arg("tree"), py::arg("width") = std::nullopt, py::arg("height") = std::nullopt, py::arg("direction") = "ltr");
     py::class_<Layout>(m, "Layout")
         .def("__repr__",
-            [](const Layout &l) {
-                std::stringstream ss;
-                ss << "<Layout left=" << l.left << " top=" << l.top << " width=" << l.width << " height=" << l.height << ">";
-                return ss.str();
-            }
-        )
-        .def_property_readonly("width",[](const Layout &l) { return l.width; })
-        .def_property_readonly("height",[](const Layout &l) { return l.height; })
-        .def_property_readonly("top",[](const Layout &l) { return l.top; })
-        .def_property_readonly("left",[](const Layout &l) { return l.left; })
-        .def_property_readonly("bottom",[](const Layout &l) { return l.top + l.height; })
-        .def_property_readonly("right",[](const Layout &l) { return l.left + l.width; })
-        .def("x",[](const Layout &l, float x) { return x * l.width + l.left; }, py::arg("position"))
-        .def("y",[](const Layout &l, float y) { return (1-y) * l.height + l.top; }), py::arg("position");
+             [](const Layout &l)
+             {
+                 std::stringstream ss;
+                 ss << "<Layout left=" << l.left << " top=" << l.top << " width=" << l.width << " height=" << l.height << ">";
+                 return ss.str();
+             })
+        .def_property_readonly("width", [](const Layout &l)
+                               { return l.width; })
+        .def_property_readonly("height", [](const Layout &l)
+                               { return l.height; })
+        .def_property_readonly("top", [](const Layout &l)
+                               { return l.top; })
+        .def_property_readonly("left", [](const Layout &l)
+                               { return l.left; })
+        .def_property_readonly("bottom", [](const Layout &l)
+                               { return l.top + l.height; })
+        .def_property_readonly("right", [](const Layout &l)
+                               { return l.left + l.width; })
+        .def(
+            "x", [](const Layout &l, float x)
+            { return x * l.width + l.left; },
+            py::arg("position"))
+        .def("y", [](const Layout &l, float y)
+             { return (1 - y) * l.height + l.top; }),
+        py::arg("position");
 
 #ifdef VERSION_INFO
     m.attr("__version__") = MACRO_STRINGIFY(VERSION_INFO);
