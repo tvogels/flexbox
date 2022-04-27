@@ -1,5 +1,6 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <pybind11/numpy.h>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -829,8 +830,8 @@ PYBIND11_MODULE(_core, m)
         .def_property_readonly("left",[](const Layout &l) { return l.left; })
         .def_property_readonly("bottom",[](const Layout &l) { return l.top + l.height; })
         .def_property_readonly("right",[](const Layout &l) { return l.left + l.width; })
-        .def("x",[](const Layout &l, float x) { return x * l.width + l.left; }, py::arg("position"))
-        .def("y",[](const Layout &l, float y) { return (1-y) * l.height + l.top; }), py::arg("position");
+        .def("x",py::vectorize([](const Layout &l, float x) { return x * l.width + l.left; }), py::arg("position"))
+        .def("y",py::vectorize([](const Layout &l, float y) { return (1-y) * l.height + l.top; })), py::arg("position");
 
 #ifdef VERSION_INFO
     m.attr("__version__") = MACRO_STRINGIFY(VERSION_INFO);
