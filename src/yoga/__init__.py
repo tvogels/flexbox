@@ -14,9 +14,6 @@ class Box(NamedTuple):
     right: float
     x: Callable[[float], float]
     y: Callable[[float], float]
-
-class BoxInfo(NamedTuple):
-    box: Box
     data: Optional[Any]
 
 
@@ -24,7 +21,7 @@ class BoxInfo(NamedTuple):
 
 def build_index(tree: domtree.Node, layouts: dict, prefix=[], index={}):
     name = "/" + "/".join(prefix)
-    index[name] = BoxInfo(wrap(layouts[tree]), tree.attributes.get("data", None))
+    index[name] = wrap(layouts[tree], data=tree.attributes.get("data", None))
     for i, child in enumerate(tree.children):  # type: ignore
         child: domtree.Node = child  # type: ignore
         ii = child.attributes["id"] if "id" in child.attributes else str(i)
@@ -33,10 +30,10 @@ def build_index(tree: domtree.Node, layouts: dict, prefix=[], index={}):
 
 
 
-def wrap(layout) -> Box:
+def wrap(layout, data=None) -> Box:
     x = lambda a: a * layout.right + (1-a) * layout.left
     y = lambda a: a * layout.top + (1-a) * layout.bottom
-    return Box(layout.width, layout.height, layout.top, layout.bottom, layout.left, layout.right, x, y)
+    return Box(layout.width, layout.height, layout.top, layout.bottom, layout.left, layout.right, x, y, data)
 
 class Layout:
     def __init__(
@@ -46,9 +43,9 @@ class Layout:
         height: Optional[float] = None,
     ):
         out = compute_layout(tree, width, height)  # type: ignore
-        self.index: dict[str, BoxInfo] = build_index(tree, out, index={})
+        self.index: dict[str, Box] = build_index(tree, out, index={})
 
-        root = self.index["/"].box
+        root = self.index["/"]
         self.width = root.width
         self.height = root.height
         self.x = root.x
