@@ -1,6 +1,8 @@
 # FlexBox layout with Yoga in Python
 
-Demo: 
+FlexBox is a very neat layout engine available in all browsers. You can play around with it in this [Playground](https://yogalayout.com/playground) to see which properties you need to get the desired results.
+
+This is how to use it in Python with this project:
 
 ```python
 from yoga import div, layout
