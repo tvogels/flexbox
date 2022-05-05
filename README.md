@@ -12,8 +12,7 @@ col = div(flex_direction="column")
 
 cell = div(width=90, height=90, margin=5)
 
-tree = layout(
-    row(width=710)(
+tree = layout(width=710)(
         div(id="cal", flexGrow=1, flex_wrap="wrap", padding=5)(
             cell()
             for _ in range(31)
@@ -26,7 +25,6 @@ tree = layout(
             right=25,
             top=25,
         ),
-    )
 )
 
 
@@ -35,7 +33,7 @@ tree = layout(
 from domtree.svg import svg, g, rect, text
 
 print(
-    svg(width=tree["/"].width, height=tree["/"].height)(
+    svg(width=layout.width, height=layout.height)(
         g(name=name)(
             rect(
                 fill="rgba(0,0,0,0.2)",
