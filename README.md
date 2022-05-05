@@ -34,7 +34,7 @@ tree["/legend"].height
 tree["/legend].x(0.5)  # horizontal center of the legend box
 
 
-# Just display
+# Make a simple drawing of all boxes in the layout
 
 from domtree.svg import svg, g, rect, text
 
