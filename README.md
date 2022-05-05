@@ -13,7 +13,7 @@ col = div(flex_direction="column")
 cell = div(width=90, height=90, margin=5)
 
 tree = layout(width=710)(
-        div(id="cal", flexGrow=1, flex_wrap="wrap", padding=5)(
+        div(id="calender", flexGrow=1, flex_wrap="wrap", padding=5)(
             cell()
             for _ in range(31)
         ),
@@ -26,6 +26,11 @@ tree = layout(width=710)(
             top=25,
         ),
 )
+
+# Access the layout
+
+tree["/legend"].height
+[box.width for box in tree.glob("/calender/*")]
 
 
 # Just display
