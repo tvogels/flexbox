@@ -31,6 +31,7 @@ tree = layout(width=710)(
 
 tree["/legend"].height
 [box.width for box in tree.glob("/calender/*")]
+tree["/legend].x(0.5)  # horizontal center of the legend box
 
 
 # Just display
