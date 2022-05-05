@@ -13,7 +13,7 @@ col = div(flex_direction="column")
 cell = div(width=90, height=90, margin=5)
 
 tree = layout(width=710)(
-        div(id="calender", flexGrow=1, flex_wrap="wrap", padding=5)(
+        div(id="calender", flex_grow=1, flex_wrap="wrap", padding=5)(
             cell()
             for _ in range(31)
         ),
