@@ -5,44 +5,41 @@ FlexBox is a very neat layout engine available in all browsers. You can play aro
 This is how to use it in Python with this project:
 
 ```python
-from yoga import div, layout
+from yoga import box
 
-row = div(flex_direction="row")
-col = div(flex_direction="column")
+row = box(flex_direction="row")
+col = box(flex_direction="column")
 
-cell = div(width=90, height=90, margin=5)
+tree = row(width=610)(
+    box(id="cal", flex_grow=1, flex_wrap="wrap", padding=5, justify_content="stretch")(
+        box(width=90, height=90, margin=5, flex_grow=1)
+        for _ in range(31)
+    ),
+    box(
+        id="legend",
+        position="absolute",
+        width=200,
+        height=200,
+        right=25,
+        top=25,
+    ),
+).layout()
 
-tree = layout(width=710)(
-        div(id="calender", flex_grow=1, flex_wrap="wrap", padding=5)(
-            cell()
-            for _ in range(31)
-        ),
-        div(
-            id="legend",
-            position="absolute",
-            width=200,
-            height=200,
-            right=25,
-            top=25,
-        ),
-)
+# Access the computed layout
 
-# Access the layout
-
-tree["/legend"].height
+(tree / "legend").height
 [box.width for box in tree.glob("/calender/*")]
-tree["/legend].x(0.5)  # horizontal center of the legend box
+tree["/legend"].x(0.5)  # horizontal center of the legend box
 
 
 # Make a simple drawing of all boxes in the layout
-
 from domtree.svg import svg, g, rect, text
 
 print(
-    svg(width=layout.width, height=layout.height)(
+    svg(width=tree.width, height=tree.height)(
         g(name=name)(
             rect(
-                fill="rgba(0,0,0,0.2)",
+                fill="rgba(0,0,0,0.1)",
                 stroke="rgba(0,0,0,0.4)",
                 stroke_width=".3",
                 x=box.left,
@@ -61,4 +58,5 @@ print(
         for name, box in tree.items()
     )
 )
+
 ```
