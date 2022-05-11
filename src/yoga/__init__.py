@@ -117,7 +117,12 @@ class BoxResolved:
 
     def _repr_html_(self):
         rect = svg.rect(fill="rgba(0,0,0,0.03)", stroke="#ccc")
-        figure = svg.svg(width=self.width, height=self.height)(
+        figure = svg.svg(
+            width=self.width,
+            height=self.height,
+            font_family="-apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica, helvetica neue, ubuntu, roboto, noto, segoe ui, arial, sans-serif",
+            stroke_linecap="round",
+        )(
             svg.g(id=name)(
                 rect(x=box.left, y=box.top, width=box.width, height=box.height),
                 svg.text(
