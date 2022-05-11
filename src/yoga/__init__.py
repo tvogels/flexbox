@@ -14,9 +14,7 @@ T = TypeVar("T", float, np.ndarray)
 
 
 class BoxSpec(domtree.Node):
-    def layout(
-        self, width: Optional[float] = None, height: Optional[float] = None
-    ):
+    def layout(self, width: Optional[float] = None, height: Optional[float] = None):
         if "id" in self.attributes:
             raise ValueError(
                 "The `id` of the root node in the layout is not used. The root node will always be called '/'."
@@ -57,7 +55,18 @@ class BoxSpec(domtree.Node):
 
 
 class BoxResolved:
-    __slots__ = ["index", "node_index", "prefix", "data", "left", "right", "top", "bottom", "width", "height"]
+    __slots__ = [
+        "index",
+        "node_index",
+        "prefix",
+        "data",
+        "left",
+        "right",
+        "top",
+        "bottom",
+        "width",
+        "height",
+    ]
 
     def __init__(self, index, node_index, prefix):
         self.index = index
@@ -93,7 +102,7 @@ class BoxResolved:
     def keys(self) -> Generator[str, None, None]:
         for key in self.index.keys():
             if key.startswith(self.prefix):
-                yield key[len(self.prefix):]
+                yield key[len(self.prefix) :]
 
     def items(self) -> Generator[tuple[str, Self], None, None]:
         for key in self.keys():
@@ -105,19 +114,29 @@ class BoxResolved:
             for key in self.index.keys()
             if pathlib.PurePath(key).match(self.prefix + pattern)
         )
-    
+
     def _repr_html_(self):
         rect = svg.rect(fill="rgba(0,0,0,0.03)", stroke="#ccc")
         figure = svg.svg(width=self.width, height=self.height)(
             svg.g(id=name)(
                 rect(x=box.left, y=box.top, width=box.width, height=box.height),
                 svg.text(
-                    x=box.left, y=box.top, font_size=10, dy=14, dx=4, fill="rgba(0,0,0,0.7)"
+                    x=box.left,
+                    y=box.top,
+                    font_size=10,
+                    dy=14,
+                    dx=4,
+                    fill="rgba(0,0,0,0.7)",
                 )(name),
             )
             for name, box in self.items()
         )
         b64 = base64.b64encode(str(figure).encode("utf-8")).decode("ascii")
-        return '<img src="data:image/svg+xml;base64,' + b64 + '" style="background-color: white; max-width:100%;" />'
+        return (
+            '<img src="data:image/svg+xml;base64,'
+            + b64
+            + '" style="background-color: white; max-width:100%;" />'
+        )
+
 
 box = BoxSpec("box")
