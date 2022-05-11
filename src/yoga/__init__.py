@@ -1,9 +1,11 @@
+import base64
 import pathlib
-from typing import Optional, TypeVar, Generator
-from typing_extensions import Self
+from typing import Generator, Optional, TypeVar
 
 import domtree
 import numpy as np
+from domtree import svg
+from typing_extensions import Self
 
 from ._core import *
 from .attributes import check_attributes
@@ -24,7 +26,7 @@ class BoxSpec(domtree.Node):
         cpp_layout = compute_layout(self, width, height)  # type: ignore
         node_index = self.object_by_path_index(self)
         index = {key: cpp_layout[node] for key, node in node_index.items()}
-        return BoxResolved(index, "")
+        return BoxResolved(index, node_index, "")
 
     @classmethod
     def object_by_path_index(
@@ -55,10 +57,11 @@ class BoxSpec(domtree.Node):
 
 
 class BoxResolved:
-    __slots__ = ["index", "prefix", "left", "right", "top", "bottom", "width", "height"]
+    __slots__ = ["index", "node_index", "prefix", "data", "left", "right", "top", "bottom", "width", "height"]
 
-    def __init__(self, index, prefix):
+    def __init__(self, index, node_index, prefix):
         self.index = index
+        self.node_index = node_index
         self.prefix = prefix
         layout = self.index[self.prefix]
         self.left = layout.left
@@ -67,12 +70,13 @@ class BoxResolved:
         self.bottom = layout.bottom
         self.width = layout.width
         self.height = layout.height
+        self.data = self.node_index[self.prefix].attributes.get("data", None)
 
     def __getitem__(self, key: str) -> Self:
         full_key = self.prefix + key
         if not full_key in self.index:
             raise ValueError(f"Could not find node {full_key}.")
-        return BoxResolved(self.index, full_key)
+        return BoxResolved(self.index, self.node_index, full_key)
 
     def __call__(self, x, y) -> np.ndarray:
         return np.array([self.x(x), self.y(y)])
@@ -97,9 +101,23 @@ class BoxResolved:
 
     def glob(self, pattern: str) -> Generator[Self, None, None]:
         return (
-            BoxResolved(self.index, key)
+            BoxResolved(self.index, self.node_index, key)
             for key in self.index.keys()
             if pathlib.PurePath(key).match(self.prefix + pattern)
         )
+    
+    def _repr_html_(self):
+        rect = svg.rect(fill="rgba(0,0,0,0.03)", stroke="#ccc")
+        figure = svg.svg(width=self.width, height=self.height)(
+            svg.g(id=name)(
+                rect(x=box.left, y=box.top, width=box.width, height=box.height),
+                svg.text(
+                    x=box.left, y=box.top, font_size=10, dy=14, dx=4, fill="rgba(0,0,0,0.7)"
+                )(name),
+            )
+            for name, box in self.items()
+        )
+        b64 = base64.b64encode(str(figure).encode("utf-8")).decode("ascii")
+        return '<img src="data:image/svg+xml;base64,' + b64 + '" style="background-color: white; max-width:100%;" />'
 
 box = BoxSpec("box")
