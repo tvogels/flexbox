@@ -140,7 +140,7 @@ class BoxResolved:
         return (
             '<img src="data:image/svg+xml;base64,'
             + b64
-            + '" style="background-color: white; max-width:100%;" />'
+            + '" style="background-color: white; max-width:100%; margin: 0.5em 0;" />'
         )
 
 
