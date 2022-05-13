@@ -5,25 +5,24 @@ FlexBox is a very neat layout engine available in all browsers. You can play aro
 This is how to use it in Python with this project:
 
 ```python
-from yoga import box
+from yoga import box, compute_layout
 
-row = box(flex_direction="row")
-col = box(flex_direction="column")
-
-tree = row(width=610)(
-    box(id="cal", flex_grow=1, flex_wrap="wrap", padding=5, justify_content="stretch")(
-        box(width=90, height=90, margin=5, flex_grow=1)
-        for _ in range(31)
-    ),
-    box(
-        id="legend",
-        position="absolute",
-        width=200,
-        height=200,
-        right=25,
-        top=25,
-    ),
-).layout()
+tree = compute_layout(
+    box(width=610, flex_direction="row")(
+        box(id="cal", flex_grow=1, flex_wrap="wrap", padding=5, justify_content="stretch")(
+            box(width=90, height=90, margin=5, flex_grow=1)
+            for _ in range(31)
+        ),
+        box(
+            id="legend",
+            position="absolute",
+            width=200,
+            height=200,
+            right=25,
+            top=25,
+        ),
+    )
+)
 
 # Access the computed layout
 

@@ -7,11 +7,10 @@ import numpy as np
 from domtree import svg
 from typing_extensions import Self
 
-from ._core import *
+from ._core as core
 from .attributes import check_attributes
 
 T = TypeVar("T", float, np.ndarray)
-
 
 class BoxSpec(domtree.Node):
     def layout(self, width: Optional[float] = None, height: Optional[float] = None):
@@ -21,7 +20,7 @@ class BoxSpec(domtree.Node):
             )
         check_attributes(self)
         self.make_nodes_unique(self)
-        cpp_layout = compute_layout(self, width, height)  # type: ignore
+        cpp_layout = core.compute_layout(self, width, height)  # type: ignore
         node_index = self.object_by_path_index(self)
         index = {key: cpp_layout[node] for key, node in node_index.items()}
         return BoxResolved(index, node_index, "")
@@ -52,6 +51,8 @@ class BoxSpec(domtree.Node):
                 child = child()
                 tree.children[i] = child
             cls.make_nodes_unique(child, used)
+
+
 
 
 class BoxResolved:
@@ -142,6 +143,11 @@ class BoxResolved:
             + b64
             + '" style="background-color: white; max-width:100%; margin: 0.5em 0;" />'
         )
+
+
+
+def compute_layout(box: BoxSpec, width: Optional[float] = None, height: Optional[float] = None) -> BoxResolved:
+    return box.layout(width, height)
 
 
 box = BoxSpec("box")
