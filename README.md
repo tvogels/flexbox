@@ -7,7 +7,7 @@ This is how to use it in Python with this project:
 ```python
 from yoga import box, compute_layout
 
-tree = compute_layout(
+layout = compute_layout(
     box(width=610, flex_direction="row")(
         box(id="cal", flex_grow=1, flex_wrap="wrap", padding=5, justify_content="stretch")(
             box(width=90, height=90, margin=5, flex_grow=1)
@@ -26,16 +26,16 @@ tree = compute_layout(
 
 # Access the computed layout
 
-(tree / "legend").height
-[box.width for box in tree.glob("/calender/*")]
-tree["/legend"].x(0.5)  # horizontal center of the legend box
+(layout / "legend").height
+[box.width for box in layout.glob("/calender/*")]
+layout["/legend"].x(0.5)  # horizontal center of the legend box
 
 
 # Make a simple drawing of all boxes in the layout
 from domtree.svg import svg, g, rect, text
 
 print(
-    svg(width=tree.width, height=tree.height)(
+    svg(width=layout.width, height=layout.height)(
         g(name=name)(
             rect(
                 fill="rgba(0,0,0,0.1)",
@@ -54,7 +54,7 @@ print(
                 alignment_baseline="middle",
             )(name),
         )
-        for name, box in tree.items()
+        for name, box in layout.items()
     )
 )
 
