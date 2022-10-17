@@ -7,7 +7,7 @@ import numpy as np
 from domtree import svg
 from typing_extensions import Self
 
-from ._core as core
+import ._core as core
 from .attributes import check_attributes
 
 T = TypeVar("T", float, np.ndarray)
