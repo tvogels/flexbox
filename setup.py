@@ -13,14 +13,14 @@ except ImportError:
 from setuptools import find_packages
 
 setup(
-    name="yoga_layout",
+    name="flexbox",
     version="0.0.1",
     description="FlexBox layout engine for Python",
     author="Thijs Vogels",
     license="MIT",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
-    cmake_install_dir="src/yoga",
+    cmake_install_dir="src/flexbox",
     include_package_data=True,
     install_requires=["domtree>=0.0.4", "typing_extensions>=4", "numpy"],
     extras_require={"test": ["pytest"]},

@@ -1,6 +1,6 @@
 import unittest
 
-from yoga import box, compute_layout
+from flexbox import box, compute_layout
 
 
 class TestLayout(unittest.TestCase):

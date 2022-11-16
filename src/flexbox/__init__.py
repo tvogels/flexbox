@@ -9,7 +9,7 @@ import numpy as np
 from domtree import svg
 from typing_extensions import Self
 
-import yoga._core as core
+import flexbox._core as core
 
 from .attributes import check_attributes
 
