@@ -5,7 +5,7 @@ FlexBox is a very neat layout engine available in all browsers. You can play aro
 This is how to use it in Python with this project:
 
 ```python
-from yoga import box, compute_layout
+from flexbox import box, compute_layout
 
 layout = compute_layout(
     box(width=610, flex_direction="row")(
@@ -57,5 +57,4 @@ print(
         for name, box in layout.items()
     )
 )
-
 ```
