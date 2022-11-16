@@ -1,4 +1,8 @@
 import sys
+from pathlib import Path
+
+this_directory = Path(__file__).parent
+readme = (this_directory / "README.md").read_text()
 
 try:
     from skbuild import setup
@@ -16,6 +20,8 @@ setup(
     name="flexbox",
     version="0.0.1",
     description="FlexBox layout engine for Python",
+    long_description=readme,
+    long_description_content_type="text/markdown",
     author="Thijs Vogels",
     url="https://github.com/tvogels/flexbox",
     license="MIT",

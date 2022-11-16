@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15...3.19)
 
-project(yoga VERSION "0.0.1")
+project(flexbox VERSION "0.0.1")
 
 if(NOT SKBUILD)
   message(FATAL_ERROR "This CMake file should be executed via scikit-build. "
