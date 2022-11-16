@@ -1,6 +1,5 @@
 import numpy as np
 
-
 allowed_attributes = {
     "align_content",
     "align_items",
@@ -81,4 +80,3 @@ def _levenshtein_edit_distance(seq1, seq2):
                     matrix[x - 1, y] + 1, matrix[x - 1, y - 1] + 1, matrix[x, y - 1] + 1
                 )
     return matrix[size_x - 1, size_y - 1]
-

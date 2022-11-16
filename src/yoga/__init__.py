@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import base64
 import pathlib
 from typing import Generator, Optional, TypeVar
@@ -9,12 +10,14 @@ from domtree import svg
 from typing_extensions import Self
 
 import yoga._core as core
+
 from .attributes import check_attributes
 
 T = TypeVar("T", float, np.ndarray)
 
+
 class BoxSpec(domtree.Node):
-    def layout(self, width: Optional[float] = None, height: Optional[float] = None):
+    def layout(self, width: float | None = None, height: float | None = None):
         if "id" in self.attributes:
             raise ValueError(
                 "The `id` of the root node in the layout is not used. The root node will always be called '/'."
@@ -52,8 +55,6 @@ class BoxSpec(domtree.Node):
                 child = child()
                 tree.children[i] = child
             cls.make_nodes_unique(child, used)
-
-
 
 
 class BoxResolved:
@@ -146,8 +147,9 @@ class BoxResolved:
         )
 
 
-
-def compute_layout(box: BoxSpec, width: Optional[float] = None, height: Optional[float] = None) -> BoxResolved:
+def compute_layout(
+    box: BoxSpec, width: float | None = None, height: float | None = None
+) -> BoxResolved:
     return box.layout(width, height)
 
 

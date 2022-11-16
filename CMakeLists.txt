@@ -2,14 +2,13 @@ cmake_minimum_required(VERSION 3.15...3.19)
 
 project(yoga VERSION "0.0.1")
 
-
-if (NOT SKBUILD)
+if(NOT SKBUILD)
   message(FATAL_ERROR "This CMake file should be executed via scikit-build. "
                       "Please run\n$ pip install .")
 endif()
 
 # Constrain FindPython to find the Python version used by scikit-build
-if (SKBUILD)
+if(SKBUILD)
   message(STATUS "Python_VERSION ${PYTHON_VERSION_STRING}")
   message(STATUS "Python_EXECUTABLE ${PYTHON_EXECUTABLE}")
   message(STATUS "Python_INCLUDE_DIR ${PYTHON_INCLUDE_DIR}")
@@ -19,8 +18,10 @@ if (SKBUILD)
   set(Python_INCLUDE_DIR "${PYTHON_INCLUDE_DIR}")
   set(Python_LIBRARIES "${PYTHON_LIBRARY}")
 endif()
-find_package(Python COMPONENTS Interpreter Development.Module REQUIRED)
-
+find_package(
+  Python
+  COMPONENTS Interpreter Development.Module
+  REQUIRED)
 
 if(SKBUILD)
   # Scikit-Build does not add your site-packages to the search path
@@ -38,8 +39,8 @@ endif()
 find_package(pybind11 CONFIG REQUIRED)
 
 pybind11_add_module(
-  _core 
-  MODULE 
+  _core
+  MODULE
   src/main.cpp
   src/sources/YGValue.cpp
   src/sources/YGStyle.cpp
@@ -52,8 +53,7 @@ pybind11_add_module(
   src/sources/Yoga.cpp
   src/sources/log.cpp
   src/sources/event/event.cpp
-  src/sources/internal/experiments.cpp
-)
+  src/sources/internal/experiments.cpp)
 
 target_compile_features(_core PRIVATE cxx_std_17)
 
