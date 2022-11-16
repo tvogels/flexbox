@@ -22,7 +22,7 @@ setup(
     package_dir={"": "src"},
     cmake_install_dir="src/yoga",
     include_package_data=True,
-    install_requires=["domtree>=0.0.4", "typing_extensions>=4"],
+    install_requires=["domtree>=0.0.4", "typing_extensions>=4", "numpy"],
     extras_require={"test": ["pytest"]},
     python_requires=">=3.7",
 )
