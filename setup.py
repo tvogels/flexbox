@@ -17,6 +17,7 @@ setup(
     version="0.0.1",
     description="FlexBox layout engine for Python",
     author="Thijs Vogels",
+    url="https://github.com/tvogels/flexbox",
     license="MIT",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
