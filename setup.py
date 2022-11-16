@@ -13,7 +13,7 @@ except ImportError:
 from setuptools import find_packages
 
 setup(
-    name="yoga",
+    name="yoga_layout",
     version="0.0.1",
     description="FlexBox layout engine for Python",
     author="Thijs Vogels",
