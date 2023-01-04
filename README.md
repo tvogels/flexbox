@@ -4,6 +4,10 @@ FlexBox is a very neat layout engine available in all browsers. You can play aro
 
 This is how to use it in Python with this project:
 
+```bash
+pip install flexbox
+```
+
 ```python
 from flexbox import box, compute_layout
 
