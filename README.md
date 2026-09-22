@@ -31,7 +31,7 @@ layout = compute_layout(
 # Access the computed layout
 
 (layout / "legend").height
-[box.width for box in layout.glob("/calender/*")]
+[box.width for box in layout.glob("/cal/*")]
 layout["/legend"].x(0.5)  # horizontal center of the legend box
 
 
